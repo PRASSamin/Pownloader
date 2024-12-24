@@ -14,6 +14,7 @@ export const fetchTiktokContent = async (url, timeout = 0) => {
         } catch (e) { }
     } else {
         try {
+            const api = new URL(_tiktokVideoFetchApiByPRAS);
             const response = await axios.get(`
                 ${_tiktokVideoFetchApiByPRAS}${url}
             `, {
@@ -21,10 +22,10 @@ export const fetchTiktokContent = async (url, timeout = 0) => {
                     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36',
                     'Accept-Language': 'en-US,en;q=0.9',
                     'Accept-Encoding': 'gzip, deflate, br',
-                    Origin: 'https://cdn.pras.me',
-                    Referer: 'https://cdn.pras.me/',
+                    Origin: api.origin,
+                    Referer: api.origin,
                     Accept: '*/*',
-                    Host: 'cdn.pras.me',
+                    Host: api.host,
                 }
             })
             return formatTiktokDataJson(response.data);
