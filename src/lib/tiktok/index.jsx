@@ -1,5 +1,5 @@
 import { BadRequest } from "@/lib/exceptions";
-import { fetchTiktokContent } from "./scrapers/prasapi";
+import { fetchTiktokContent } from "./scrapers/api";
 
 export const fetchTiktokContentJson = async (url, timeout = 5000) => {
 
