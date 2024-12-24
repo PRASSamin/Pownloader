@@ -18,3 +18,5 @@ export const TiktokIcon = React.forwardRef<SVGElement, SVGProps>(
     );
   }
 );
+
+TiktokIcon.displayName = "TiktokIcon";

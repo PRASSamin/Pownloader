@@ -1,13 +1,5 @@
 "use client";
-import { useState } from "react";
-import {
-    Sheet,
-    SheetContent,
-    SheetTrigger,
-} from "@/components/ui/sheet";
-
 import { buttonVariants } from "@/components/ui/button";
-import { Menu } from "lucide-react";
 import { GitHub } from "@mui/icons-material";
 import Image from "next/image";
 import { Fragment } from "react";
@@ -33,7 +25,7 @@ export default function Navigation({ className }) {
                 <NavigationMenu className="mx-auto">
                     <NavigationMenuList className="container h-14 px-4 w-screen flex justify-between ">
                         <NavigationMenuItem className="font-bold flex h-full py-2">
-                            <a
+                            <Link
                                 rel="noreferrer noopener"
                                 href="/"
                                 className="ml-2 font-bold text-xl flex"
@@ -45,7 +37,7 @@ export default function Navigation({ className }) {
                                     alt="pownloader"
                                     className="h-full w-auto"
                                 />
-                            </a>
+                            </Link>
                         </NavigationMenuItem>
 
 

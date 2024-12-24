@@ -1,12 +1,13 @@
 import React from "react";
 import { navItems } from "../../components/nav.list";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 const Galaxy = () => {
   const platforms = navItems()
     .filter((item) => item.title.toLowerCase() === "tools")
     .flatMap((item) => item.subItems)
-    .map((subItem) => subItem.icon); 
+    .map((subItem) => subItem.icon);
 
   const orbitSizes = [200, 300, 400];
 
@@ -14,7 +15,7 @@ const Galaxy = () => {
     <div className="relative flex items-center justify-center bg-black">
       {/* Central Logo */}
       <div className="central-logo">
-        <img src="/logo.png" alt="Central Logo" className="w-20 h-auto" />
+        <Image width={100} height={100} src="/logo.png" alt="Central Logo" className="w-20 h-auto" />
       </div>
 
       {/* Rotating Orbits */}

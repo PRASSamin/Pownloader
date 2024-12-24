@@ -41,3 +41,5 @@ export const Logo = React.forwardRef<SVGElement, SVGProps>(
     );
   }
 );
+
+Logo.displayName = "PownloaderLogo";

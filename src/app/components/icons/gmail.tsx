@@ -37,3 +37,5 @@ export const GmailIcon = React.forwardRef<SVGElement, SVGProps>(
     );
   }
 );
+
+GmailIcon.displayName = "GmailIcon";

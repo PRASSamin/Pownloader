@@ -32,3 +32,5 @@ export const WNotIcon = React.forwardRef<SVGElement, SVGProps>(
     );
   }
 );
+
+WNotIcon.displayName = "WNotIcon";

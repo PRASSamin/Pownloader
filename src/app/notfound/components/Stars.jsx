@@ -39,4 +39,5 @@ const Stars = React.memo(() => {
     )
 })
 
+Stars.displayName = 'Stars'
 export default Stars

@@ -78,7 +78,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${russo.className} antialiased overflow-hidden md:overflow-auto bg-black font-sans`}
+        className={`antialiased overflow-hidden md:overflow-auto bg-black font-sans`}
       >
         <CanvasBackground />
         {children}

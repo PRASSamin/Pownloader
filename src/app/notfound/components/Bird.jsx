@@ -3,6 +3,7 @@ const Bird = () => {
         <>
             {[...Array(6)].map((_, index) => (
                 <div
+                    key={index}
                     style={{
                         transform: "translate3d(-100vw, 0, 0) rotateY(90deg)",
                         transformStyle: "preserve-3d",

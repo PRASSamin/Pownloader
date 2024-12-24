@@ -28,3 +28,5 @@ export const WIcon = React.forwardRef<SVGElement, SVGProps>(
     );
   }
 );
+
+WIcon.displayName = "WIcon";

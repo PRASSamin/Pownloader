@@ -9,6 +9,7 @@ import { HomeRoot } from "./root";
 
 import HeroSection from "./home/components/hero";
 import FAQ from "./home/components/faq";
+import Image from "next/image";
 
 export default function Home() {
   const [isLoading, setLoading] = React.useState(true);
@@ -23,7 +24,7 @@ export default function Home() {
     <HomeRoot>
       {isLoading ? (
         <div className="flex items-center justify-center h-screen w-full pt-3 pb-8 bg-background">
-          <img src="/logo.png" className="w-20 preloader" alt="preloader" />
+          <Image width={100} height={100} src="/logo.png" className="w-20 preloader" alt="preloader" />
         </div>
       ) : (
         <CursorProvider>
