@@ -8,11 +8,6 @@
     "url": "https://github.com/PRASSamin/Pownloader"
   },
   "author": "PRASSamin <prassamin@gmail.com> (https://pras.me)",
-  "type": "module",
-  "main": "index.js",
-  "exports": "./index.js",
-  "types": "./index.d.ts",
-  "sideEffects": false,
   "description": "Pownloader is the ultimate free video downloader that allows you to download videos and photos in high quality from your favorite platforms with just one click. This project is open-source and available for everyone to use and contribute.",
   "keywords": [
     "PRAS",
