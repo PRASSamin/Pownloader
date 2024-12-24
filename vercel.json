@@ -1,0 +1,22 @@
+{
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "Referer", "value": "*" },
+        { "key": "Origin", "value": "*" },
+        { "key": "User-Agent", "value": "*" },
+        { "key": "Host", "value": "*" },
+        { "key": "X-Forwarded-For", "value": "*" },
+        { "key": "X-Requested-With", "value": "*" },
+        { "key": "X-Vercel-Ip-Country", "value": "*" },
+        { "key": "X-Vercel-Ip-City", "value": "*" },
+        { "key": "X-Vercel-Ip-Latitude", "value": "*" },
+        { "key": "X-Vercel-Ip-Longitude", "value": "*" },
+        { "key": "X-Vercel-Ip-Timezone", "value": "*" },
+        { "key": "X-Vercel-Ip-Region", "value": "*" },
+        { "key": "X-Vercel-Ip", "value": "*" }
+      ]
+    }
+  ]
+}
