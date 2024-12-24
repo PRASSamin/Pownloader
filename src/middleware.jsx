@@ -26,7 +26,6 @@ const isStaticPath = (path) => {
 
 export async function middleware(request) {
     const { pathname } = request.nextUrl;
-    console.log(geolocation(request));
     const { country, city, latitude, longitude, countryRegion } = geolocation(request);
     const ip = ipAddress(request);
 
@@ -34,6 +33,11 @@ export async function middleware(request) {
     headers.set("x-current-url", request.nextUrl.href);
     headers.set("x-current-ip", ip);
     headers.set("x-forwarded-for", ip);
+    headers.set("x-current-country", country);
+    headers.set("x-current-city", city);
+    headers.set("x-current-latitude", latitude);
+    headers.set("x-current-longitude", longitude);
+    headers.set("x-current-country-region", countryRegion);
     headers.set("x-current-path", pathname);
 
     const tools = navItems()
@@ -52,7 +56,7 @@ export async function middleware(request) {
         const requestPath = request.nextUrl.pathname;
         const country = request.geo?.country ?? "Country";
 
-        if (headers.get('host') !== 'pownloader.pras.me') {
+        if (request.headers.get('host') !== 'pownloader.pras.me') {
             return NextResponse.json(
                 { error: 'Unauthorized' },
                 { status: 401 }
@@ -76,8 +80,7 @@ export async function middleware(request) {
             );
         }
 
-        const clientIp = getClientIp(request);
-        console.log(`${request.method} ${clientIp} (${country}) -> ${requestPath}`);
+        console.log(`${request.method} ${ip} (${country}) -> ${requestPath}`);
     }
 
     return NextResponse.next({ headers });
