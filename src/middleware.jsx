@@ -1,9 +1,8 @@
 import { NextResponse } from "next/server";
 
-import { upstashBanDuration } from "@/conf/upstash";
-import { enableServerAPI } from "@/conf/instagram";
+import { upstashBanDuration } from "./conf/upstash";
 
-import { isRatelimited } from "@/lib/rate-limit";
+import { isRatelimited } from "./lib/rate-limit";
 import { navItems } from "./app/components/nav.list"
 import { geolocation, ipAddress } from "@vercel/functions";
 
@@ -26,18 +25,11 @@ const isStaticPath = (path) => {
 
 export async function middleware(request) {
     const { pathname } = request.nextUrl;
-    const { country, city, latitude, longitude, countryRegion } = geolocation(request);
+    const { country, city, latitude, longitude, countryRegion, flag } = geolocation(request);
     const ip = ipAddress(request);
 
     const headers = new Headers(request.headers);
     headers.set("x-current-url", request.nextUrl.href);
-    headers.set("x-current-ip", ip);
-    headers.set("x-forwarded-for", ip);
-    headers.set("x-current-country", country);
-    headers.set("x-current-city", city);
-    headers.set("x-current-latitude", latitude);
-    headers.set("x-current-longitude", longitude);
-    headers.set("x-current-country-region", countryRegion);
     headers.set("x-current-path", pathname);
 
     const tools = navItems()
@@ -54,7 +46,6 @@ export async function middleware(request) {
 
     if (process.env.NEXT_STAGE === "production") {
         const requestPath = request.nextUrl.pathname;
-        const country = request.geo?.country ?? "Country";
 
         if (request.headers.get('host') !== 'pownloader.pras.me') {
             return NextResponse.json(
@@ -67,7 +58,7 @@ export async function middleware(request) {
             return NextResponse.next({ headers });
         }
 
-        if (requestPath.startsWith("/api") && enableServerAPI) {
+        if (requestPath.startsWith("/api")) {
             const isLimited = await isRatelimited(request);
             if (!isLimited) return;
 
@@ -80,7 +71,7 @@ export async function middleware(request) {
             );
         }
 
-        console.log(`${request.method} ${ip} (${country}) -> ${requestPath}`);
+        console.log(`${request.method} ${ip} (${country}${flag}) -> ${requestPath}`);
     }
 
     return NextResponse.next({ headers });
