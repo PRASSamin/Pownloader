@@ -43,15 +43,25 @@ export const isRatelimited = async (request) => {
     try {
         const identifier = ipAddress(request);
         if (!identifier) return false;
+
+        const isBanned = await redisClient.get(`ban:${identifier}`);
+        if (isBanned) return true;
+
         const result = await ratelimit.limit(identifier);
         if (result.success) return false;
-        if (upstashBanEnabled) {
+
+        const violations = (await redisClient.incr(`violations:${identifier}`)) || 0;
+
+        if (violations >= 3 && upstashBanEnabled) {
             await redisClient.setex(
                 `ban:${identifier}`,
                 upstashBanDuration,
                 "banned"
             );
+        } else {
+            await redisClient.expire(`violations:${identifier}`, 60);
         }
+
         return true;
     } catch (err) {
         console.error(err.message);
