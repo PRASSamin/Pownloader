@@ -1,45 +1,15 @@
-"use client";
-import React from "react";
-import CursorProvider from "./home/components/cursor";
-import Navigation from "./home/components/nav";
-import Footer from "./home/components/footer";
-import BottomNavigation from "./components/bottomNav";
+import Home from "./home/view"
+import { metatag } from "@/lib/metatag";
+import { headers } from "next/headers";
 
-import { HomeRoot } from "./root";
+export default async function HomePage() {
+  return <Home />;
+}
 
-import HeroSection from "./home/components/hero";
-import FAQ from "./home/components/faq";
-import Image from "next/image";
+HomePage.displayName = "HomePage";
 
-export default function Home() {
-  const [isLoading, setLoading] = React.useState(true);
-
-  React.useEffect(() => {
-    if (typeof window !== "undefined") {
-      setLoading(false);
-    }
-  }, []);
-
-  return (
-    <HomeRoot>
-      {isLoading ? (
-        <div className="flex items-center justify-center h-screen w-full pt-3 pb-8 bg-background">
-          <Image width={100} height={100} src="/logo.png" className="w-20 preloader" alt="preloader" />
-        </div>
-      ) : (
-        <CursorProvider>
-          {window.innerWidth > 768 ? (
-            <Navigation className={"hidden md:block"} />
-          ) : (
-            <BottomNavigation />
-          )}
-          <HeroSection />
-          <section className="min-h-[calc(100vh-57px)] pb-[56px] md:pb-0 flex flex-col justify-between">
-            <FAQ />
-            <Footer />
-          </section>
-        </CursorProvider>
-      )}
-    </HomeRoot>
-  );
+export async function generateMetadata() {
+  const headersList = await headers();
+  const url = new URL(headersList.get("x-current-url"));
+  return metatag('Pownloader - Ultimate Video Downloader', url, 'index, follow');
 }

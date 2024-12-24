@@ -89,8 +89,6 @@ export function _generateRandomId() {
   return Math.random().toString(10).substring(2, 15);
 }
 
-import { writeFileSync } from "fs";
-
 export const formatGraphqlStoryJson = (data) => {
   if (!data) {
     throw new BadRequest("This post does not exist");

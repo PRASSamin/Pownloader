@@ -27,12 +27,22 @@ const isStaticPath = (path) => {
 export async function middleware(request) {
     const { pathname } = request.nextUrl;
 
+    const headers = new Headers(request.headers);
+    headers.set("x-current-url", request.nextUrl.href);
+    headers.set("x-current-ip", getClientIp(request));
+    headers.set("x-forwarded-for", getClientIp(request));
+    headers.set("x-current-path", pathname);
+
     const tools = navItems()
         .filter((item) => item.title.toLowerCase() === "tools")
         .flatMap((item) => item.subItems);
 
     if (pathname === "/tools" || pathname === "/tool" && tools.length > 0 && tools[0].url) {
         return NextResponse.redirect(new URL(tools[0].url, request.url));
+    }
+
+    if (pathname === "/home") {
+        return NextResponse.redirect(new URL("/", request.url));
     }
 
     if (process.env.NEXT_STAGE === "production") {
@@ -47,7 +57,7 @@ export async function middleware(request) {
         }
 
         if (isStaticPath(requestPath)) {
-            return NextResponse.next();
+            return NextResponse.next({ headers });
         }
 
         if (requestPath.startsWith("/api") && enableServerAPI) {
@@ -66,6 +76,8 @@ export async function middleware(request) {
         const clientIp = getClientIp(request);
         console.log(`${request.method} ${clientIp} (${country}) -> ${requestPath}`);
     }
+
+    return NextResponse.next({ headers });
 }
 
 export const config = {
