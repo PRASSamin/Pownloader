@@ -1,21 +1,37 @@
 {
-  "name": "",
   "short_name": "Pownloader",
+  "dir": "auto",
+  "name": "",
+  "background_color": "#061e2f",
+  "theme_color": "#061e2f",
+  "display": "standalone",
+  "start_url": "https://pownloader.pras.me/?launchedfrom=homescreen",
+  "scope": "https://pownloader.pras.me",
+  "id": "https://pownloader.pras.me/hb6rwGuMNIdZibvj5srL",
+  "prefer_related_applications": false,
+  "related_applications": [],
   "icons": [
     {
-      "src": "/favicon-192x192.png",
-      "sizes": "192x192",
+      "src": "/favicon-512x512-any.png",
+      "sizes": "512x512",
       "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "any"
     },
     {
-      "src": "/favicon-512x512.png",
+      "src": "/favicon-512x512-maskable.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
     }
   ],
-  "theme_color": "#09090b",
-  "background_color": "#09090b",
-  "display": "standalone"
+  "protocol_handlers": [
+    {
+      "protocol": "web+pwa",
+      "url": "https://pownloader.pras.me/?launchedfrom=homescreen&pwaprotocolredirect=%s"
+    },
+    {
+      "protocol": "web+pownloader",
+      "url": "https://pownloader.pras.me/?launchedfrom=homescreen&pwaprotocolredirect=%s"
+    }
+  ]
 }
