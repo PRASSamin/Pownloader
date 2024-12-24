@@ -3,9 +3,9 @@ import { NextResponse } from "next/server";
 import { upstashBanDuration } from "@/conf/upstash";
 import { enableServerAPI } from "@/conf/instagram";
 
-import { getClientIp } from "@/utils";
 import { isRatelimited } from "@/lib/rate-limit";
 import { navItems } from "./app/components/nav.list"
+import { geolocation, ipAddress } from "@vercel/functions";
 
 const isStaticPath = (path) => {
     const staticPaths = [
@@ -26,11 +26,14 @@ const isStaticPath = (path) => {
 
 export async function middleware(request) {
     const { pathname } = request.nextUrl;
+    console.log(geolocation(request));
+    const { country, city, latitude, longitude, countryRegion } = geolocation(request);
+    const ip = ipAddress(request);
 
     const headers = new Headers(request.headers);
     headers.set("x-current-url", request.nextUrl.href);
-    headers.set("x-current-ip", getClientIp(request));
-    headers.set("x-forwarded-for", getClientIp(request));
+    headers.set("x-current-ip", ip);
+    headers.set("x-forwarded-for", ip);
     headers.set("x-current-path", pathname);
 
     const tools = navItems()
@@ -49,7 +52,7 @@ export async function middleware(request) {
         const requestPath = request.nextUrl.pathname;
         const country = request.geo?.country ?? "Country";
 
-        if (request.headers.get('referer') !== 'https://pownloader.pras.me/') {
+        if (headers.get('host') !== 'pownloader.pras.me') {
             return NextResponse.json(
                 { error: 'Unauthorized' },
                 { status: 401 }

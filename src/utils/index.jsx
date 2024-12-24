@@ -8,19 +8,6 @@ export const getTimedFilename = (name, ext) => {
     return `${name}-${timeStamp}.${ext}`;
 };
 
-export const getClientIp = (request) => {
-    let ip;
-
-    ip = request.ip ?? request.headers.get("x-real-ip");
-    const forwarded = request.headers.get("x-forwarded-for");
-
-    if (!ip && forwarded) {
-        ip = forwarded.split(",")[0] ?? null;
-    }
-
-    return ip;
-}
-
 export const SuccessResponse = (data) => {
     const response = {
         status: "success",

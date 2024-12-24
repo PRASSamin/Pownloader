@@ -1,6 +1,6 @@
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
-import { getClientIp } from "@/utils/index";
+import { ipAddress } from "@vercel/functions";
 import {
     upstashToken,
     upstashUrl,
@@ -41,7 +41,7 @@ export const isRatelimited = async (request) => {
     if (!validUpstash) return false;
 
     try {
-        const identifier = getClientIp(request);
+        const identifier = ipAddress(request);
         if (!identifier) return false;
         const result = await ratelimit.limit(identifier);
         if (result.success) return false;
