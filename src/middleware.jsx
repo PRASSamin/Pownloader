@@ -20,7 +20,6 @@ export async function middleware(request) {
     const ip = ipAddress(request);
     const { country, flag } = geolocation(request);
 
-    // Early return for preflight requests
     if (request.method === "OPTIONS") {
         return NextResponse.next();
     }
@@ -70,5 +69,5 @@ export async function middleware(request) {
 }
 
 export const config = {
-    matcher: ["/api/:path*"],
+    matcher: ["/:path*"],
 };
