@@ -4,13 +4,12 @@ import axios from "axios";
 
 const isRedirectorUrl = (url) => {
     const redirectorPatterns = [
-        /fb\.watch/,
-        /facebook\.com\/l\.php/,
+        /https?:\/\/(?:l\.facebook\.com|fb\.watch|facebook\.com\/l\.php)[^\s]*/
     ];
     return redirectorPatterns.some((pattern) => pattern.test(url));
 };
 
-const resolveRedirectUrl = async (url) => {
+export const resolveRedirectUrl = async (url) => {
     try {
         const response = await axios.get(url, {
             maxRedirects: 0,

@@ -70,7 +70,7 @@ const TiktokDownloaderView = () => {
                     <div className="w-full flex flex-col gap-10">
                         <div className="w-full xl:w-1/2 xl:self-center">
                             <UrlInput
-                                allowedDomains={["tiktok.com"]}
+                                allowedDomains={["tiktok.com", "vm.tiktok.com", "vt.tiktok.com"]}
                                 onFetch={fetchVideoData}
                             />
                         </div>

@@ -1,9 +1,5 @@
 import "./globals.css";
-import CanvasBackground from "@/app/components/background";
 import { Russo_One } from "next/font/google";
-import GoogleAna from "@/app/GoogleAna";
-import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const russo = Russo_One({
   weight: "400",
@@ -77,15 +73,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={`antialiased overflow-hidden md:overflow-auto bg-black font-sans`}
-      >
-        <CanvasBackground />
-        {children}
-        <Analytics />
-        <SpeedInsights />
-        <GoogleAna />
-      </body>
+      {children}
     </html>
   );
 }

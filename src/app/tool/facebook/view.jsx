@@ -76,7 +76,7 @@ const FacebookDownloaderView = () => {
                     <div className="w-full flex flex-col gap-10">
                         <div className="w-full xl:w-1/2 xl:self-center">
                             <UrlInput
-                                allowedDomains={["facebook.com"]}
+                                allowedDomains={["facebook.com", "l.facebook.com", "fb.watch"]}
                                 onFetch={fetchVideoData}
                             />
                         </div>
